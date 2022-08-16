@@ -12,7 +12,7 @@ export const TodoTaskSchema = new mongoose.Schema({
     label: {
         type: String,
         required: true,
-        default: "black"
+        default: "todo"
     },
     category: {
         type: String,
