@@ -8,6 +8,25 @@ export const TodoTaskSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: "default-val"
+    },
+    label: {
+        type: String,
+        required: true,
+        default: "black"
+    },
+    category: {
+        type: String,
+        required: true,
+        default: "none"
+    },
+    isCompleted: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    date: {
+        type: Date,
+        required: false
     }
 },
 {
