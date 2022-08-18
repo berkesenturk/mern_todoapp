@@ -13,7 +13,7 @@ export default function FullWidthTextField(props) {
   
   function handleSubmit(event) {
     event.preventDefault();
-    console.log( "submitted task: ", textInput)
+    console.log("submitted task: ", textInput)
     console.log("adding to...: ", taskList[props.name])  
     taskList[props.name].push(textInput)
 

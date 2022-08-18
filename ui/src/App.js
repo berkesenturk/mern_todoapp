@@ -1,12 +1,12 @@
 import Main from "./pages/main";
-import { TaskContext, taskData } from "./contexts/TaskContext";
+import { TaskContext, taskData, TaskProvider } from "./contexts/TaskContext";
 
 function App() {
   return (
     <>
-      <TaskContext.Provider value = {taskData}>
+      <TaskProvider>
         <Main />
-      </TaskContext.Provider>
+      </TaskProvider>
     </>
   );
 }

@@ -1,6 +1,9 @@
 import * as React from 'react';
+import { useState, createContext, useContext, useEffect } from "react";
 
-export const taskData = {
+const TaskContext = createContext();
+
+const taskData = {
     "in-progress": [
       "task1",
       "task2",
@@ -27,6 +30,27 @@ export const taskData = {
     ]
 }
 
-export const TaskContext = React.createContext(
-    taskData
-)
+const TaskProvider = ({ children }) => {
+  const [tasks, setTasks] = useState(taskData)
+
+  const addToTasks = (data, TaskNode) => {
+    
+    setTasks(tasks[TaskNode].push(data))
+    console.log("Task added in TaskProvider");
+  }
+
+  const values = {
+    tasks,
+    addToTasks
+  }
+
+
+  return (
+    <TaskContext.Provider value = {values}> {children}</TaskContext.Provider>
+  )
+}
+
+const useTaskContext = () => useContext(TaskContext);
+
+export { TaskProvider, useTaskContext 
+}
