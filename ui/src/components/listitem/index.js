@@ -5,7 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function ItemList(props) {
     const [checked, setChecked] = React.useState([0]);
@@ -22,13 +22,13 @@ function ItemList(props) {
 
         setChecked(newChecked);
     };
-
+    
   return (
     <ListItem
     key={props.value}
     secondaryAction={
       <IconButton edge="end" aria-label="comments">
-        <CommentIcon />
+        <DeleteIcon  />
       </IconButton>
     }
     disablePadding
@@ -43,7 +43,7 @@ function ItemList(props) {
           inputProps={{ 'aria-labelledby': props.labelId }}
         />
       </ListItemIcon>
-      <ListItemText id={props.labelId} primary={`Line item ${props.value + 1}`} />
+      <ListItemText id={props.labelId} primary={`Line item ${props.value}`} />
     </ListItemButton>
   </ListItem>
   )
