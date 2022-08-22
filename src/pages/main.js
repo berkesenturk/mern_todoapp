@@ -42,7 +42,6 @@ const taskData = {
     "refactor code with usereducer",
     "tasks should be expandable, once expanded desc, deadline, label will be viewed",
     "for above: use listitembutton for expand button ",
-    "add gantt chart: difficult to make it, last task always",
-    "add pencil icon for edit modal component"
+    "add gantt chart: difficult to make it, last task always"
   ]
 };

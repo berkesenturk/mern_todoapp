@@ -10,6 +10,8 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import EditIcon from "@mui/icons-material/Edit";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { useEffect } from "react";
+import hello from "../../../../public/hello.jpg";
 
 function ItemList(props) {
   const [checked, setChecked] = React.useState([0]);
@@ -26,6 +28,9 @@ function ItemList(props) {
     }
 
     setChecked(newChecked);
+
+    setExpand(!expand);
+    console.log(expand);
   };
 
   return (
@@ -45,11 +50,7 @@ function ItemList(props) {
         }
         disablePadding
       >
-        <ListItemButton
-          role={undefined}
-          onClick={handleToggle(props.value)}
-          dense
-        >
+        <ListItemButton sx={{}}>
           <ListItemIcon>
             <Checkbox
               edge="start"
@@ -59,15 +60,19 @@ function ItemList(props) {
               inputProps={{ "aria-labelledby": props.labelId }}
             />
           </ListItemIcon>
+        </ListItemButton>
+        <ListItemButton
+          role={undefined}
+          onClick={handleToggle(props.value)}
+          dense
+        >
           <ListItemText id={props.id} primary={`${props.value}`} />
         </ListItemButton>
       </ListItem>
-      <Collapse
-        key={props.id}
-        in={expand}
-        timeout="auto"
-        unmountOnExit
-      ></Collapse>
+      <Collapse key={props.id} in={expand} timeout="auto" unmountOnExit>
+        <div> hello mf </div>
+        <img src={hello} width="100" height="100"></img>
+      </Collapse>
       {/* https://codesandbox.io/s/material-demo-forked-6ppng1?file=/demo.js:1332-1343 */}
     </>
   );
