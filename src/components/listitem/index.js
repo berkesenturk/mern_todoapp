@@ -8,12 +8,12 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
-
+import EditIcon from "@mui/icons-material/Edit";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
 function ItemList(props) {
   const [checked, setChecked] = React.useState([0]);
-  const [expand, SetExpand] = React.useState(false);
+  const [expand, setExpand] = React.useState(false);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -34,9 +34,14 @@ function ItemList(props) {
         key={props.value}
         button
         secondaryAction={
-          <IconButton edge="end" aria-label="comments">
-            <DeleteIcon />
-          </IconButton>
+          <>
+            <IconButton edge="end" aria-label="comments">
+              <EditIcon />
+            </IconButton>
+            <IconButton edge="end" aria-label="comments">
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
         disablePadding
       >
@@ -55,8 +60,6 @@ function ItemList(props) {
             />
           </ListItemIcon>
           <ListItemText id={props.id} primary={`${props.value}`} />
-
-          {expand ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
       </ListItem>
       <Collapse
