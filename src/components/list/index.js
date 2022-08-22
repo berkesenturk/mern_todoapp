@@ -8,19 +8,16 @@ import TextField from "@mui/material/TextField";
 
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
 
 import { Stack } from "@mui/system";
 
 export default function CheckboxList(props) {
   const [data, setData] = useState(props.tasks[props.name]);
-  const [board, setBoard] = useState(props.name);
+  const [expand, setExpand] = useState(false);
   const textRef = useRef();
 
-  useEffect(() => {}, [data]);
-
   useEffect(() => {
-    // setData(props.tasks[props.name]);
-    console.log("data -->", data);
     textRef.current.value = "";
   }, [data]);
 
@@ -40,7 +37,6 @@ export default function CheckboxList(props) {
           id = {props.name} 
           name = {props.name}
         /> */}
-
         <Stack direction="row">
           <TextField
             sx={{
@@ -52,13 +48,20 @@ export default function CheckboxList(props) {
             name="task-input"
             width="100%"
             inputRef={textRef}
+            onSubmit={() => {
+              setData([...data, textRef.current.value]); // useReducer
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setData([...data, textRef.current.value]); // useReducer
+              }
+            }}
           />
           <IconButton
             size="small"
             type="submit"
             onClick={() => {
-              // console.log(typeof data, data);
-              setData([...data, textRef.current.value]);
+              setData([...data, textRef.current.value]); // useReducer
             }}
           >
             <AddIcon />
@@ -66,9 +69,12 @@ export default function CheckboxList(props) {
         </Stack>
 
         {data.map((value) => {
-          const labelId = `checkbox-list-label-${value}-${Math.random}`;
-
-          return <ItemList id={labelId} value={value} labelId={labelId} />;
+          return (
+            <ItemList
+              id={`${props.name}-${data.indexOf(value)}`}
+              value={value}
+            />
+          );
         })}
       </List>
     </>

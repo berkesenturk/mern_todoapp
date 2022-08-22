@@ -38,6 +38,10 @@ const taskData = {
     "task list is not dynamic",
     "clean code make more readable",
     "add theme dark/light",
-    "add loading on submit to add button"
+    "add loading on submit to add button",
+    "refactor code with usereducer",
+    "tasks should be expandable, once expanded desc, deadline, label will be viewed",
+    "for above: expandmore & expandless ui",
+    "add gantt chart: difficult to make it, last task always"
   ]
 };
