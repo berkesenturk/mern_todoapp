@@ -65,6 +65,7 @@ function ItemList(props) {
         timeout="auto"
         unmountOnExit
       ></Collapse>
+      {/* https://codesandbox.io/s/material-demo-forked-6ppng1?file=/demo.js:1332-1343 */}
     </>
   );
 }
