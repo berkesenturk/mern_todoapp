@@ -40,8 +40,7 @@ const taskData = {
     "add theme dark/light",
     "add loading on submit to add button",
     "refactor code with usereducer",
-    "tasks should be expandable, once expanded desc, deadline, label will be viewed",
-    "for above: use listitembutton for expand button ",
+    "increase width of lists",
     "add gantt chart: difficult to make it, last task always"
   ]
 };
