@@ -35,12 +35,9 @@ const taskData = {
   todo: ["task5", "task6", "task7", "task8"],
   complete: ["task9", "task10", "task11", "task12"],
   "remaining-jobs": [
-    "task list is not dynamic",
-    "clean code make more readable",
+    "drag & drop capability",
+    "list header",
     "add theme dark/light",
-    "add loading on submit to add button",
-    "refactor code with usereducer",
-    "increase width of lists",
-    "add gantt chart: difficult to make it, last task always"
+    "refactor code"
   ]
 };

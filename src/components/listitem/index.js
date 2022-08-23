@@ -12,7 +12,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useEffect } from "react";
 import hello from "../../../../public/hello.jpg";
-
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import DoneIcon from "@mui/icons-material/Done";
@@ -49,6 +55,18 @@ function ItemList(props) {
         button
         secondaryAction={
           <>
+            <Checkbox
+              sx={{ maxWidth: 1 }}
+              edge="start"
+              checked={checked.indexOf(props.value) !== -1}
+              tabIndex={-1}
+              disableRipple
+              inputProps={{ "aria-labelledby": props.labelId }}
+            />
+            <Checkbox
+              icon={<StarBorderRoundedIcon />}
+              checkedIcon={<StarBorderRoundedIcon />}
+            />
             <IconButton edge="end" aria-label="comments">
               <EditIcon />
             </IconButton>
@@ -59,13 +77,13 @@ function ItemList(props) {
         }
         disablePadding
       >
-        <ListItemButton
+        {/* <ListItemButton
           sx={{ maxWidth: 2 }}
           onClick={handleToggle(props.value)}
         >
           <ListItemIcon>
             <Checkbox
-              sx={{ maxWidth: 2 }}
+              sx={{ maxWidth: 1 }}
               edge="start"
               checked={checked.indexOf(props.value) !== -1}
               tabIndex={-1}
@@ -74,6 +92,9 @@ function ItemList(props) {
             />
           </ListItemIcon>
         </ListItemButton>
+        <ListItemButton sx={{ maxWidth: 1 }}>
+          <StarBorderRoundedIcon />
+        </ListItemButton> */}
         <ListItemButton
           sx={{ minWidth: 10 }}
           role={undefined}
@@ -88,37 +109,34 @@ function ItemList(props) {
       <Collapse key={props.id} in={expand} timeout="auto" unmountOnExit>
         {/* <div> hello mf </div>
         <img src={hello} width="100" height="100" alt="aasd"></img> */}
-        <Stack direction="column" spacing={1}>
-          Text1:
-          <Chip
-            sx={{ maxWidth: 150 }}
-            label="Custom delete icon"
-            deleteIcon={<DoneIcon />}
-          />
-          <Chip
-            sx={{ maxWidth: 150 }}
-            label="Custom delete icon"
-            deleteIcon={<DoneIcon />}
-          />
-          <Chip
-            sx={{ maxWidth: 150 }}
-            label="Custom delete icon"
-            deleteIcon={<DoneIcon />}
-          />
-          <Chip
-            sx={{ maxWidth: 150 }}
-            label="Custom delete icon"
-            deleteIcon={<DoneIcon />}
-          />
-        </Stack>
+        <TableContainer>
+          <Table sx={{ maxWidth: 400 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">Description</TableCell>
+                <TableCell align="right">Label</TableCell>
+                <TableCell align="right">Deadline</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.name}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="right">lorem ipsum</TableCell>
+                  <TableCell align="right">important</TableCell>
+                  <TableCell align="right">
+                    {new Date().toUTCString()}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Collapse>
-      {/* https://codesandbox.io/s/material-demo-forked-6ppng1?file=/demo.js:1332-1343 */}
     </>
   );
 }
-
-const taskTableData = [
-  { label: "red", deadline: Date.now(), description: "lorem ipsum" }
-];
 
 export default ItemList;

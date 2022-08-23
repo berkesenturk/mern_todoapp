@@ -28,7 +28,8 @@ export default function CheckboxList(props) {
         sx={{
           width: "100%",
           my: 1,
-          maxWidth: 360,
+          minWidth: 400,
+          maxWidth: 500,
           bgcolor: "beige",
           boxShadow: 4
         }}
