@@ -38,6 +38,6 @@ const taskData = {
     "drag & drop capability",
     "list header",
     "add theme dark/light",
-    "refactor code"
+    "refactor everything"
   ]
 };
