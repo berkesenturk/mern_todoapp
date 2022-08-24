@@ -16,7 +16,6 @@ export default function Main() {
         <Grid container justifyContent="center" spacing={4}>
           {Object.keys(taskData).map((board) => (
             <Grid key={board} sx={{ my: 30 }} item>
-              <div>{board}</div>
               <CheckboxList
                 id={Object.keys(taskData).indexOf(board)}
                 name={board}
@@ -31,13 +30,20 @@ export default function Main() {
 }
 
 const taskData = {
-  "in-progress": ["task1", "task2", "task3", "task4"],
+  "in-progress": [
+    "refactor everything: ****",
+    "task1",
+    "task2",
+    "task3",
+    "task4"
+  ],
   todo: ["task5", "task6", "task7", "task8"],
   complete: ["task9", "task10", "task11", "task12"],
-  "remaining-jobs": [
-    "drag & drop capability",
-    "list header",
-    "add theme dark/light",
-    "refactor everything"
+  backlog: [
+    "make context work: *****",
+    "drag & drop capability: *",
+    "add theme dark/light:***",
+    "if task deleted -> alert with taskname array shift",
+    "make tasks editable"
   ]
 };

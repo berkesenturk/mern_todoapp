@@ -22,10 +22,12 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import DoneIcon from "@mui/icons-material/Done";
+import Rating from "@mui/material/Rating";
 
 function ItemList(props) {
   const [checked, setChecked] = React.useState([0]);
   const [expand, setExpand] = React.useState(false);
+  const [taskRating, setTaskRating] = React.useState(2);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -62,6 +64,7 @@ function ItemList(props) {
               tabIndex={-1}
               disableRipple
               inputProps={{ "aria-labelledby": props.labelId }}
+              onClick={handleToggle(props.value)}
             />
             <Checkbox
               icon={<StarBorderRoundedIcon />}
@@ -107,31 +110,54 @@ function ItemList(props) {
         </ListItemButton>
       </ListItem>
       <Collapse key={props.id} in={expand} timeout="auto" unmountOnExit>
-        {/* <div> hello mf </div>
-        <img src={hello} width="100" height="100" alt="aasd"></img> */}
         <TableContainer>
           <Table sx={{ maxWidth: 400 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="right">Description</TableCell>
-                <TableCell align="right">Label</TableCell>
-                <TableCell align="right">Deadline</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.name}
+            <TableRow>
+              <TableCell variant="head">Description</TableCell>
+              <TableCell>lorem ipsum</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell variant="head">Label</TableCell>
+              <TableCell>sport</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell variant="head">Priority</TableCell>
+              <TableCell>
+                <Rating
+                  name="simple-controlled"
+                  value={taskRating}
+                  onChange={(event, newValue) => {
+                    setTaskRating(newValue);
+                  }}
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell variant="head">Deadline</TableCell>
+              <TableCell>{new Date().toUTCString()}</TableCell>
+            </TableRow>
+
+            {/* <TableBody> */}
+            {/* {rows.map((row) => ( */}
+            {/* <TableRow
+                  // key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="right">lorem ipsum</TableCell>
-                  <TableCell align="right">important</TableCell>
-                  <TableCell align="right">
-                    {new Date().toUTCString()}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+                > */}
+            {/* <TableCell>lorem ipsum</TableCell> */}
+            {/* <TableCell>important</TableCell> */}
+            {/* <TableCell>
+                    <Rating
+                      name="simple-controlled"
+                      value={taskRating}
+                      onChange={(event, newValue) => {
+                        setTaskRating(newValue);
+                      }}
+                    />
+                  </TableCell> */}
+            {/* <TableCell>{new Date().toUTCString()}</TableCell> */}
+            {/* </TableRow> */}
+            {/* ))} */}
+            {/* </TableBody> */}
           </Table>
         </TableContainer>
       </Collapse>
