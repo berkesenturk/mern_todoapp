@@ -1,98 +1,130 @@
-import * as React from 'react';
-import List from '@mui/material/List';
-import ItemList from '../listitem';
-// import FullWidthTextField from '../textinput';
-import { TaskContext } from '../../contexts/TaskContext';
-import { useContext, useState } from 'react';
-import TextField from '@mui/material/TextField';
+import * as React from "react";
+import List from "@mui/material/List";
+import ItemList from "../listitem";
+// import FullWidthTextField from '../textRef';
+// import { useTaskContext } from "../../contexts/TaskContext";
+import { useState, useRef, useEffect } from "react";
+import TextField from "@mui/material/TextField";
 
-import AddIcon from '@mui/icons-material/Add';
-import IconButton  from '@mui/material/IconButton';
+import AddIcon from "@mui/icons-material/Add";
+import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import CloseIcon from "@mui/icons-material/Close";
 
-import { Stack } from '@mui/system';
+import AlertTitle from "@mui/material/AlertTitle";
+import Alert from "@mui/material/Alert";
+
+import { Stack } from "@mui/system";
 
 export default function CheckboxList(props) {
-  
-  const { taskData, setTaskData } = useContext(TaskContext) 
-  
-  const [textInput, setTextInput] = useState('');
+  const [data, setData] = useState(props.tasks[props.name]);
+  const [inputAlert, setInputAlert] = useState(false);
+  const textRef = useRef();
 
-  const [state, dispatch] = React.useReducer(reducer, { taskData: taskData } )
-  
-  console.log(taskData);
-  
-  console.log("STATE: ", state.taskList);
+  useEffect(() => {
+    textRef.current.value = "";
+  }, [data]);
 
-  function reducer(state, action) {
-    switch (action.type) {
-      case 'task-reduce':
-        return setTaskData(state.taskData[props.name].push(textInput)) // taskList
-      default:
-        throw new Error("sth went wrong with reducer");
-    }
-  }
+  const handleSubmit = () => {
+    setData([...data, textRef.current.value]);
+
+    setInputAlert(true);
+
+    console.log("e");
+  };
 
   return (
     <>
-      <List 
-        sx={{ 
-            width: '100%', 
-            my:1 , 
-            maxWidth: 360, 
-            bgcolor: 'beige', 
-            boxShadow: 4
+      <List
+        id={props.name}
+        sx={{
+          width: "100%",
+          my: 1,
+          minWidth: 400,
+          maxWidth: 500,
+          bgcolor: "beige",
+          boxShadow: 4
+        }}
+      >
+        <ListItemText
+          sx={{ my: 2, mx: 2 }}
+          primary={props.name}
+          primaryTypographyProps={{
+            fontSize: 20,
+            fontWeight: "medium",
+            letterSpacing: 0
           }}
-      > 
-    
-         {/* <FullWidthTextField 
+        />
+        {/* <FullWidthTextField 
           id = {props.name} 
           name = {props.name}
         /> */}
-         <form
-          sx={{
-            maxWidth: '100%',
-          }}
-          onSubmit={() => dispatch({type: 'decrement'})}
-        >
-          <Stack
-            direction="row" 
+        <Stack direction="row">
+          <TextField
+            sx={{
+              mx: 2,
+              my: 2,
+              minWidth: 330,
+              maxWidth: 500
+            }}
+            variant="standard"
+            label="Task"
+            id="fullWidth"
+            name="task-input"
+            width="100%"
+            inputRef={textRef}
+            onSubmit={
+              handleSubmit
+              // useReducer
+            }
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                // setData([...data, textRef.current.value]);
+                handleSubmit(); // useReducer
+              }
+            }}
+          />
+          <IconButton
+            size="small"
+            type="submit"
+            // onClick={() => {
+            //   setData([...data, textRef.current.value]); // useReducer
+            // }}
+            onClick={handleSubmit}
           >
-            <TextField 
-              sx = {{ 
-                mx:2
-              }} 
-              variant='standard'
-              label="Task" 
-              id="fullWidth" 
-              name= "task-input" 
-              width ='100%'
-              value= {textInput}
-              onInput = { e => setTextInput(e.target.value) }
+            <AddIcon />
+          </IconButton>
+        </Stack>
+        {data.map((value) => {
+          return (
+            <ItemList
+              id={`${props.name}-${data.indexOf(value)}`}
+              value={value}
             />
-            <IconButton
-                size= "small"
-                type='submit'
-                >
-              <AddIcon /> 
-            </IconButton>
-          </Stack>
-          
-        </form>
-      
-        
-        {
-          state.taskData[props.name].map((value) => {
-            
-            const labelId = `checkbox-list-label-${value}`;
-            
-            return (
-              <ItemList id={labelId} value = {value} labelId= {labelId}/> 
-            )
-          })
-        }
-
-        
+          );
+        })}
       </List>
+      <Collapse in={inputAlert}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setInputAlert(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Task Saved!
+        </Alert>
+      </Collapse>
     </>
   );
 }
