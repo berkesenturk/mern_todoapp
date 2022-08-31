@@ -29,21 +29,21 @@ export default function Main() {
   );
 }
 
-const taskData = {
-  "in-progress": [
-    "refactor everything: ****",
-    "task1",
-    "task2",
-    "task3",
-    "task4"
-  ],
-  todo: ["task5", "task6", "task7", "task8"],
-  complete: ["task9", "task10", "task11", "task12"],
-  backlog: [
-    "make context work: *****",
-    "drag & drop capability: *",
-    "add theme dark/light:***",
-    "if task deleted -> alert with taskname array shift",
-    "make tasks editable"
-  ]
-};
+// const taskData = {
+//   "in-progress": [
+//     "refactor everything: ****",
+//     "task1",
+//     "task2",
+//     "task3",
+//     "task4"
+//   ],
+//   todo: ["task5", "task6", "task7", "task8"],
+//   complete: ["task9", "task10", "task11", "task12"],
+//   backlog: [
+//     "make context work: *****",
+//     "drag & drop capability: *",
+//     "add theme dark/light:***",
+//     "if task deleted -> alert with taskname array shift",
+//     "make tasks editable"
+//   ]
+// };

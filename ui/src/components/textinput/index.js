@@ -1,15 +1,20 @@
-import * as React from "react";
-import TextField from "@mui/material/TextField";
 import { useState, useContext } from "react";
-import AddIcon from "@mui/icons-material/Add";
+
+
+import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 
-import { TaskContext } from "../../contexts/TaskContext";
+import AddIcon from "@mui/icons-material/Add";
+
 import { Stack } from "@mui/system";
+
+import { TaskContext } from "../../contexts/TaskContext";
 
 export default function FullWidthTextField(props) {
   const [textInput, setTextInput] = useState("");
   const taskList = useContext(TaskContext);
+
+  // usecontext here!!! bcz value will change on submit
 
   function handleSubmit(event) {
     event.preventDefault();

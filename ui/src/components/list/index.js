@@ -1,34 +1,35 @@
-import * as React from "react";
-import List from "@mui/material/List";
-import ItemList from "../listitem";
-// import FullWidthTextField from '../textRef';
-// import { useTaskContext } from "../../contexts/TaskContext";
-import { useState, useRef, useEffect } from "react";
-import TextField from "@mui/material/TextField";
+import { useState, useRef, useEffect, useContext } from "react";
 
-import AddIcon from "@mui/icons-material/Add";
+import List from "@mui/material/List";
+import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import CloseIcon from "@mui/icons-material/Close";
-
-import AlertTitle from "@mui/material/AlertTitle";
 import Alert from "@mui/material/Alert";
 
+import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { Stack } from "@mui/system";
+
+// import FullWidthTextField from '../textRef';
+import ItemList from "../listitem";
+
 
 export default function CheckboxList(props) {
   const [data, setData] = useState(props.tasks[props.name]);
   const [inputAlert, setInputAlert] = useState(false);
   const textRef = useRef();
 
+  // usecontext here!!!
+
+
   useEffect(() => {
     textRef.current.value = "";
   }, [data]);
 
   const handleSubmit = () => {
-    setData([...data, textRef.current.value]);
+    // setData([...data, textRef.current.value]);
 
     setInputAlert(true);
 
