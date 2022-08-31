@@ -1,33 +1,36 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import { useTasks } from "../../contexts/TaskContext";
+
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Collapse from "@mui/material/Collapse";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import EditIcon from "@mui/icons-material/Edit";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import { useEffect } from "react";
-import hello from "../../../../public/hello.jpg";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import Table from "@mui/material/Table"
+import TableRow from "@mui/material/TableRow"
+import Rating from "@mui/material/Rating"
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
-import DoneIcon from "@mui/icons-material/Done";
-import Rating from "@mui/material/Rating";
+
 
 function ItemList(props) {
   const [checked, setChecked] = React.useState([0]);
   const [expand, setExpand] = React.useState(false);
   const [taskRating, setTaskRating] = React.useState(2);
+  const [tasks, addTaskToList, removeTaskFromList] = useTasks()
+
+
+
+  useEffect(() => {
+    // textRef.current.value = "";
+    console.log("USEEFFECT WORKED, tasks changed");
+  }, [tasks[props.name]]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -35,7 +38,8 @@ function ItemList(props) {
 
     if (currentIndex === -1) {
       newChecked.push(value);
-    } else {
+    } 
+    else {
       newChecked.splice(currentIndex, 1);
     }
 
@@ -44,11 +48,6 @@ function ItemList(props) {
     console.log(expand);
   };
 
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const rows = [createData("Frozen yoghurt", 159, 6.0, 24, 4.0)];
 
   return (
     <>
@@ -109,6 +108,7 @@ function ItemList(props) {
           <ListItemText id={props.id} primary={`${props.value}`} />
         </ListItemButton>
       </ListItem>
+
       <Collapse key={props.id} in={expand} timeout="auto" unmountOnExit>
         <TableContainer>
           <Table sx={{ maxWidth: 400 }} aria-label="simple table">
@@ -137,27 +137,6 @@ function ItemList(props) {
               <TableCell>{new Date().toUTCString()}</TableCell>
             </TableRow>
 
-            {/* <TableBody> */}
-            {/* {rows.map((row) => ( */}
-            {/* <TableRow
-                  // key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                > */}
-            {/* <TableCell>lorem ipsum</TableCell> */}
-            {/* <TableCell>important</TableCell> */}
-            {/* <TableCell>
-                    <Rating
-                      name="simple-controlled"
-                      value={taskRating}
-                      onChange={(event, newValue) => {
-                        setTaskRating(newValue);
-                      }}
-                    />
-                  </TableCell> */}
-            {/* <TableCell>{new Date().toUTCString()}</TableCell> */}
-            {/* </TableRow> */}
-            {/* ))} */}
-            {/* </TableBody> */}
           </Table>
         </TableContainer>
       </Collapse>

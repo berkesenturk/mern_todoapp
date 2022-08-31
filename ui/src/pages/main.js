@@ -1,9 +1,15 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import CheckboxList from "../components/list";
+import { useTasks } from "../contexts/TaskContext";
 
 export default function Main() {
-  console.log("main worked");
+  
+  const [tasks, addTaskToList, removeTaskFromList] = useTasks()
+
+  React.useEffect(() => {
+
+  }, [tasks])
 
   return (
     <Grid
@@ -14,36 +20,18 @@ export default function Main() {
     >
       <Grid item xs={12}>
         <Grid container justifyContent="center" spacing={4}>
-          {Object.keys(taskData).map((board) => (
-            <Grid key={board} sx={{ my: 30 }} item>
-              <CheckboxList
-                id={Object.keys(taskData).indexOf(board)}
-                name={board}
-                tasks={taskData}
-              />
-            </Grid>
+          {
+            Object.keys(tasks).map((board) => (
+              <Grid key={board} sx={{ my: 30 }} item>
+                <CheckboxList
+                  id={Object.keys(tasks).indexOf(board)}
+                  name={board}
+                  tasks={tasks}
+                />
+              </Grid>
           ))}
         </Grid>
       </Grid>
     </Grid>
   );
 }
-
-// const taskData = {
-//   "in-progress": [
-//     "refactor everything: ****",
-//     "task1",
-//     "task2",
-//     "task3",
-//     "task4"
-//   ],
-//   todo: ["task5", "task6", "task7", "task8"],
-//   complete: ["task9", "task10", "task11", "task12"],
-//   backlog: [
-//     "make context work: *****",
-//     "drag & drop capability: *",
-//     "add theme dark/light:***",
-//     "if task deleted -> alert with taskname array shift",
-//     "make tasks editable"
-//   ]
-// };

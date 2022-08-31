@@ -12,29 +12,20 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { Stack } from "@mui/system";
 
-// import FullWidthTextField from '../textRef';
+import FullWidthTextField from '../textinput';
 import ItemList from "../listitem";
+import { useTasks } from "../../contexts/TaskContext";
 
 
 export default function CheckboxList(props) {
-  const [data, setData] = useState(props.tasks[props.name]);
-  const [inputAlert, setInputAlert] = useState(false);
-  const textRef = useRef();
-
-  // usecontext here!!!
+  const [tasks, addTaskToList, removeTaskFromList] = useTasks()
+  const [taskState, setTaskState] = useState(tasks)
 
 
   useEffect(() => {
-    textRef.current.value = "";
-  }, [data]);
-
-  const handleSubmit = () => {
-    // setData([...data, textRef.current.value]);
-
-    setInputAlert(true);
-
-    console.log("e");
-  };
+    // textRef.current.value = "";
+    console.log("USEEFFECT WORKED, tasks changed");
+  }, [tasks[props.name]]);
 
   return (
     <>
@@ -58,74 +49,23 @@ export default function CheckboxList(props) {
             letterSpacing: 0
           }}
         />
-        {/* <FullWidthTextField 
+
+        <FullWidthTextField 
           id = {props.name} 
           name = {props.name}
-        /> */}
-        <Stack direction="row">
-          <TextField
-            sx={{
-              mx: 2,
-              my: 2,
-              minWidth: 330,
-              maxWidth: 500
-            }}
-            variant="standard"
-            label="Task"
-            id="fullWidth"
-            name="task-input"
-            width="100%"
-            inputRef={textRef}
-            onSubmit={
-              handleSubmit
-              // useReducer
-            }
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                // setData([...data, textRef.current.value]);
-                handleSubmit(); // useReducer
-              }
-            }}
-          />
-          <IconButton
-            size="small"
-            type="submit"
-            // onClick={() => {
-            //   setData([...data, textRef.current.value]); // useReducer
-            // }}
-            onClick={handleSubmit}
-          >
-            <AddIcon />
-          </IconButton>
-        </Stack>
-        {data.map((value) => {
+          // input = {textRef}
+        />
+
+        {
+          tasks[props.name].map((value) => {
           return (
             <ItemList
-              id={`${props.name}-${data.indexOf(value)}`}
+              id={`${props.name}-${tasks[props.name].indexOf(value)}`}
               value={value}
             />
           );
         })}
       </List>
-      <Collapse in={inputAlert}>
-        <Alert
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setInputAlert(false);
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-          sx={{ mb: 2 }}
-        >
-          Task Saved!
-        </Alert>
-      </Collapse>
     </>
   );
 }

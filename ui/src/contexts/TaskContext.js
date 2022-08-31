@@ -1,29 +1,35 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState,useEffect } from "react"
 
 export const TaskContext = createContext()
 
-const TaskProvider = ({ children }) => {
+export const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState(taskData)
 
-    const addTaskToList = (value) => {
-        setTasks([...tasks, value])
+    const addTaskToList = (value, list) => {
+        console.log("addtasktolist worked");
+        tasks[list] = [...tasks[list], value]
+        setTasks(tasks)
+        console.log();
     }
 
-    const removeTaskFromList = (value) => {
-        setTasks(tasks.filter(task => task !== value))   
+    const removeTaskFromList = (value, list) => {
+        setTasks(tasks[list].filter(task => task !== value))   
     }
 
     // edit task
 
-    const data = [tasks, addTaskToList]
+    const data = [tasks, addTaskToList, removeTaskFromList]
     
-    return <TaskContext.Provider value={ data }> { children } </TaskContext.Provider>
+    return <TaskContext.Provider value = { data }> { children } </TaskContext.Provider>
 }
 
-const useTasks = () => {
+export const useTasks = () => {
     const context = useContext(TaskContext)
+    
     if(context === undefined)
         throw new Error("useTasks can only be used inside TaskProvider")
+    
+    return context
 }
 
 

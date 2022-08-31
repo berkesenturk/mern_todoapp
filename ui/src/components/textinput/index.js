@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-
+import { useState, useRef, useEffect } from "react";
 
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
@@ -8,28 +7,40 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { Stack } from "@mui/system";
 
-import { TaskContext } from "../../contexts/TaskContext";
+import { useTasks } from "../../contexts/TaskContext";
 
 export default function FullWidthTextField(props) {
+  
   const [textInput, setTextInput] = useState("");
-  const taskList = useContext(TaskContext);
+  const [tasks, addTaskToList, removeTaskFromList] = useTasks() // why we should write like this useTasks(useTasks)
+  const textRef = useRef();
 
-  // usecontext here!!! bcz value will change on submit
+  const handleSubmit = (event) => {
 
-  function handleSubmit(event) {
     event.preventDefault();
-    console.log("submitted task: ", textInput);
-    console.log("adding to...: ", taskList[props.name]);
-    taskList[props.name].push(textInput);
+    console.log("submitted task: ", textRef.current.value);
+    console.log("adding to...: ", tasks[props.name]);
+    
+    addTaskToList(textRef.current.value, props.name)
+    // setTextInput("")
 
-    console.log(`new tasklist for ${props.name}: `, taskList[props.name]);
-  }
+    console.log(`new tasklist for ${props.name}: `, tasks[props.name]);
+  };
+
+  useEffect(() => {
+    // textRef.current.value = ""
+    console.log("USEEFFECT WORKED in text input");
+  }, [tasks])
 
   return (
+
     <Stack direction="row">
       <TextField
         sx={{
-          mx: 2
+          mx: 2,
+          my: 2,
+          minWidth: 330,
+          maxWidth: 500
         }}
         variant="standard"
         label="Task"
@@ -37,25 +48,26 @@ export default function FullWidthTextField(props) {
         name="task-input"
         width="100%"
         inputRef={textRef}
-        onSubmit={() => {
-          setData([...data, textRef.current.value]);
-        }}
+        onChange= { () => { console.log(textRef.current.value) }}
+        onSubmit={
+          handleSubmit // useReducer
+        }
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            setData([...data, textRef.current.value]); // useReducer
+            handleSubmit(e); // useReducer
           }
         }}
       />
       <IconButton
         size="small"
         type="submit"
-        onClick={() => {
-          // console.log(typeof data, data);
-          setData([...data, textRef.current.value]); // useReducer
-        }}
+        // onClick={() => {
+        //   setData([...data, textRef.current.value]); // useReducer
+        // }}
+        onClick={handleSubmit}
       >
-        <AddIcon />
-      </IconButton>
-    </Stack>
+      <AddIcon />
+    </IconButton>
+  </Stack>
   );
 }
