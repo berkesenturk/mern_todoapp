@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -22,12 +23,9 @@ import Rating from '@mui/material/Rating';
 function ItemList({ value, id, labelId }) {
   const [checked, setChecked] = React.useState([0]);
   const [expand, setExpand] = React.useState(false);
-  const [taskRating, setTaskRating] = React.useState(2);
-  // const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
+  const [taskRating, setTaskRating] = React.useState(value.rating);
 
-  // const handleChange = (newValue) => {
-  //   setValue(newValue);
-  // };
+  console.log(value);
 
   const handleToggle = (valueInp) => () => {
     const currentIndex = checked.indexOf(valueInp);
@@ -82,7 +80,7 @@ function ItemList({ value, id, labelId }) {
           }}
           dense
         >
-          <ListItemText id={id} primary={`${value}`} />
+          <ListItemText id={id} primary={`${value.title}`} />
         </ListItemButton>
       </ListItem>
       <Collapse key={id} in={expand} timeout="auto" unmountOnExit>

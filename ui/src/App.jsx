@@ -4,11 +4,8 @@ import Main from './pages/main';
 
 function App() {
   return (
-    // eslint-disable-next-line react/react-in-jsx-scope
     <div>
-      {/* <TaskProvider> */}
       <Main />
-      {/* </TaskProvider> */}
     </div>
   );
 }

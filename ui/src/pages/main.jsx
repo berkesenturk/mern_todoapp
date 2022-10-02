@@ -4,28 +4,64 @@ import CheckboxList from '../components/list';
 
 const taskData = {
   'in-progress': [
-    'refactor everything: ****',
-    'task1',
-    'task2',
-    'task3',
-    'task4',
+    {
+      title: 'refactor everything: ****',
+      isChecked: false,
+      isStar: false,
+      rating: 1,
+    },
+    {
+      title: 'task1',
+      isChecked: true,
+      isStar: true,
+      rating: 1,
+    },
   ],
-  todo: ['task5', 'task6', 'task7', 'task8'],
-  complete: ['task9', 'task10', 'task11', 'task12'],
+  todo: [
+    {
+      title: 'task5',
+      isChecked: false,
+      isStar: false,
+      rating: 1,
+    },
+    {
+      title: 'task6',
+      isChecked: true,
+      isStar: true,
+      rating: 1,
+    },
+  ],
+  complete: [
+    {
+      title: 'task7',
+      isChecked: false,
+      isStar: false,
+      rating: 1,
+    },
+    {
+      title: 'task8',
+      isChecked: true,
+      isStar: true,
+      rating: 1,
+    },
+  ],
   backlog: [
-    'make context work: *****',
-    'drag & drop capability: *',
-    'add theme dark/light:***',
-    'if task deleted -> alert with taskname array shift',
-    'make tasks editable',
-    "integrate with the gantt chart you've prepared",
-    'integrate with google tasks',
+    {
+      title: 'task9',
+      isChecked: false,
+      isStar: false,
+      rating: 1,
+    },
+    {
+      title: 'task10',
+      isChecked: true,
+      isStar: true,
+      rating: 1,
+    },
   ],
 };
 
 export default function Main() {
-  console.log('main worked');
-
   return (
     <Grid
       sx={{ flexGrow: 1 }}
@@ -35,15 +71,18 @@ export default function Main() {
     >
       <Grid item xs={12}>
         <Grid container justifyContent="center" spacing={4}>
-          {Object.keys(taskData).map((board) => (
-            <Grid key={board} sx={{ my: 30 }} item>
-              <CheckboxList
-                id={Object.keys(taskData).indexOf(board)}
-                name={board}
-                tasks={taskData}
-              />
-            </Grid>
-          ))}
+          {
+            Object.keys(taskData)
+              .map((board) => (
+                <Grid key={board} sx={{ my: 30 }} item>
+                  <CheckboxList
+                    id={Object.keys(taskData).indexOf(board)}
+                    name={board}
+                    tasks={taskData}
+                  />
+                </Grid>
+              ))
+          }
         </Grid>
       </Grid>
     </Grid>
