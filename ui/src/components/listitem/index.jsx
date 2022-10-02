@@ -26,23 +26,6 @@ function ItemList({ value, id, labelId }) {
   const [taskRating, setTaskRating] = React.useState(value.rating);
   const [starChecked, setStarChecked] = React.useState(value.isStar);
 
-  console.log(value);
-
-  // const handleToggle = (valueInp) => () => {
-  //   const currentIndex = checked.indexOf(valueInp);
-  //   const newChecked = [...checked];
-
-  //   if (currentIndex === -1) {
-  //     newChecked.push(valueInp);
-  //   } else {
-  //     newChecked.splice(currentIndex, 1);
-  //   }
-
-  //   setChecked(newChecked);
-
-  //   console.log(expand);
-  // };
-
   return (
     <>
       <ListItem
