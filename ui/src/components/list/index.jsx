@@ -22,7 +22,14 @@ export default function CheckboxList({ name, tasks }) {
   }, [data]);
 
   const handleSubmit = () => {
-    setData([...data, textRef.current.value]);
+    const newData = {
+      title: textRef.current.value,
+      isChecked: false,
+      isStar: false,
+      rating: 1,
+    };
+
+    setData([...data, newData]);
     setInputAlert(true);
   };
 

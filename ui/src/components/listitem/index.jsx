@@ -21,26 +21,27 @@ import Rating from '@mui/material/Rating';
 
 // eslint-disable-next-line react/prop-types
 function ItemList({ value, id, labelId }) {
-  const [checked, setChecked] = React.useState([0]);
+  const [checked, setChecked] = React.useState(value.isChecked);
   const [expand, setExpand] = React.useState(false);
   const [taskRating, setTaskRating] = React.useState(value.rating);
+  const [starChecked, setStarChecked] = React.useState(value.isStar);
 
   console.log(value);
 
-  const handleToggle = (valueInp) => () => {
-    const currentIndex = checked.indexOf(valueInp);
-    const newChecked = [...checked];
+  // const handleToggle = (valueInp) => () => {
+  //   const currentIndex = checked.indexOf(valueInp);
+  //   const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(valueInp);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
+  //   if (currentIndex === -1) {
+  //     newChecked.push(valueInp);
+  //   } else {
+  //     newChecked.splice(currentIndex, 1);
+  //   }
 
-    setChecked(newChecked);
+  //   setChecked(newChecked);
 
-    console.log(expand);
-  };
+  //   console.log(expand);
+  // };
 
   return (
     <>
@@ -52,15 +53,24 @@ function ItemList({ value, id, labelId }) {
             <Checkbox
               sx={{ maxWidth: 1 }}
               edge="start"
-              checked={checked.indexOf(value) !== -1}
+              checked={checked}
               tabIndex={-1}
               disableRipple
               inputProps={{ 'aria-labelledby': labelId }}
-              onClick={handleToggle(value)}
+              onClick={() => {
+                // eslint-disable-next-line no-param-reassign
+                value.isChecked = !checked;
+                setChecked(!checked);
+              }}
             />
             <Checkbox
               icon={<StarBorderRoundedIcon />}
               checkedIcon={<StarBorderRoundedIcon />}
+              onClick={() => {
+                // eslint-disable-next-line no-param-reassign
+                value.isStar = !starChecked;
+                setStarChecked(!starChecked);
+              }}
             />
             <IconButton edge="end" aria-label="comments">
               <EditIcon />
@@ -101,6 +111,8 @@ function ItemList({ value, id, labelId }) {
                   name="simple-controlled"
                   value={taskRating}
                   onChange={(event, newValue) => {
+                    // eslint-disable-next-line no-param-reassign
+                    value.rating = newValue;
                     setTaskRating(newValue);
                   }}
                 />
@@ -111,27 +123,6 @@ function ItemList({ value, id, labelId }) {
               <TableCell>{new Date().toUTCString()}</TableCell>
             </TableRow>
 
-            {/* <TableBody> */}
-            {/* {rows.map((row) => ( */}
-            {/* <TableRow
-                  // key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                > */}
-            {/* <TableCell>lorem ipsum</TableCell> */}
-            {/* <TableCell>important</TableCell> */}
-            {/* <TableCell>
-                    <Rating
-                      name="simple-controlled"
-                      value={taskRating}
-                      onChange={(event, newValue) => {
-                        setTaskRating(newValue);
-                      }}
-                    />
-                  </TableCell> */}
-            {/* <TableCell>{new Date().toUTCString()}</TableCell> */}
-            {/* </TableRow> */}
-            {/* ))} */}
-            {/* </TableBody> */}
           </Table>
         </TableContainer>
       </Collapse>
