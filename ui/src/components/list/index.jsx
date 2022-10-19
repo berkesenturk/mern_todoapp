@@ -94,16 +94,18 @@ export default function CheckboxList({ name, tasks }) {
             <AddIcon />
           </IconButton>
         </Stack>
-        {data.map((value) => (
-          <ItemList
-            id={`${name}-${data.indexOf(value)}`}
-            isChecked={value.isChecked}
-            rating={value.rating}
-            isStar={value.isStar}
-            labelId={`${name}-${data.indexOf(value)}`}
-            title={value.title}
-          />
-        ))}
+        {
+          data.map((value) => (
+            <ItemList
+              id={Math.floor(Math.random() * 10000)}
+              isChecked={value.isChecked}
+              rating={value.rating}
+              isStar={value.isStar}
+              labelId={Math.floor(Math.random() * 10000)}
+              title={value.title}
+            />
+          ))
+}
       </List>
       <Collapse in={inputAlert}>
         <Alert
