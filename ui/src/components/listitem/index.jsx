@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useRef } from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -14,17 +14,38 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import Rating from '@mui/material/Rating';
+import TextField from '@mui/material/TextField';
+import Popover from '@mui/material/Popover';
 
 // import dayjs from 'dayjs';
 // import TextField from '@mui/material/TextField';
 // import DateTimePicker from "@mui/material/DateTimePicker";
 
 // eslint-disable-next-line react/prop-types
-function ItemList({ value, id, labelId }) {
-  const [checked, setChecked] = React.useState(value.isChecked);
+function ItemList({
+  isChecked,
+  rating,
+  isStar,
+  id,
+  labelId,
+}) {
+  const [checked, setChecked] = React.useState(isChecked);
   const [expand, setExpand] = React.useState(false);
-  const [taskRating, setTaskRating] = React.useState(value.rating);
-  const [starChecked, setStarChecked] = React.useState(value.isStar);
+  const [taskRating, setTaskRating] = React.useState(rating);
+  const [starChecked, setStarChecked] = React.useState(isStar);
+  const textRef = useRef();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const [description, setDescription] = React.useState('lorem ipsum');
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
     <>
@@ -77,11 +98,37 @@ function ItemList({ value, id, labelId }) {
         </ListItemButton>
       </ListItem>
       <Collapse key={id} in={expand} timeout="auto" unmountOnExit>
+        {/* <DataGrid
+          rows={rows}
+          columns={columns}
+          experimentalFeatures={{ newEditingApi: true }}
+        /> */}
         <TableContainer>
           <Table sx={{ maxWidth: 400 }} aria-label="simple table">
             <TableRow>
               <TableCell variant="head">Description</TableCell>
-              <TableCell>lorem ipsum</TableCell>
+              <TableCell onClick={handleClick}>{description}</TableCell>
+              {/* // can be popover or ClickAwayListener */}
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+              >
+                <TextField
+                  size="small"
+                  variant="standard"
+                  label="desc"
+                  id={value.title}
+                  name="task-edit"
+                  inputRef={textRef}
+                  onChange={() => setDescription(textRef)}
+                />
+              </Popover>
             </TableRow>
             <TableRow>
               <TableCell variant="head">Label</TableCell>

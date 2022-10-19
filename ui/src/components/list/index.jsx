@@ -21,6 +21,12 @@ export default function CheckboxList({ name, tasks }) {
     textRef.current.value = '';
   }, [data]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setInputAlert(false);
+    }, 5000);
+  });
+
   const handleSubmit = () => {
     const newData = {
       title: textRef.current.value,
@@ -91,7 +97,10 @@ export default function CheckboxList({ name, tasks }) {
         {data.map((value) => (
           <ItemList
             id={`${name}-${data.indexOf(value)}`}
-            value={value}
+            isChecked={value.isChecked}
+            rating={value.rating}
+            isStar={value.isStar}
+            labelId={`${name}-${data.indexOf(value)}`}
           />
         ))}
       </List>
