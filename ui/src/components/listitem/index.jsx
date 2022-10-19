@@ -28,6 +28,7 @@ function ItemList({
   isStar,
   id,
   labelId,
+  title,
 }) {
   const [checked, setChecked] = React.useState(isChecked);
   const [expand, setExpand] = React.useState(false);
@@ -50,7 +51,7 @@ function ItemList({
   return (
     <>
       <ListItem
-        key={value}
+        key={labelId}
         button
         secondaryAction={(
           <>
@@ -62,8 +63,6 @@ function ItemList({
               disableRipple
               inputProps={{ 'aria-labelledby': labelId }}
               onClick={() => {
-                // eslint-disable-next-line no-param-reassign
-                value.isChecked = !checked;
                 setChecked(!checked);
               }}
             />
@@ -72,7 +71,7 @@ function ItemList({
               checkedIcon={<StarBorderRoundedIcon />}
               onClick={() => {
                 // eslint-disable-next-line no-param-reassign
-                value.isStar = !starChecked;
+                isStar = !starChecked;
                 setStarChecked(!starChecked);
               }}
             />
@@ -94,7 +93,7 @@ function ItemList({
           }}
           dense
         >
-          <ListItemText id={id} primary={`${value.title}`} />
+          <ListItemText id={id} primary={`${title}`} />
         </ListItemButton>
       </ListItem>
       <Collapse key={id} in={expand} timeout="auto" unmountOnExit>
@@ -123,7 +122,7 @@ function ItemList({
                   size="small"
                   variant="standard"
                   label="desc"
-                  id={value.title}
+                  id={title}
                   name="task-edit"
                   inputRef={textRef}
                   onChange={() => setDescription(textRef)}
@@ -141,8 +140,6 @@ function ItemList({
                   name="simple-controlled"
                   value={taskRating}
                   onChange={(event, newValue) => {
-                    // eslint-disable-next-line no-param-reassign
-                    value.rating = newValue;
                     setTaskRating(newValue);
                   }}
                 />

@@ -101,6 +101,7 @@ export default function CheckboxList({ name, tasks }) {
             rating={value.rating}
             isStar={value.isStar}
             labelId={`${name}-${data.indexOf(value)}`}
+            title={value.title}
           />
         ))}
       </List>
